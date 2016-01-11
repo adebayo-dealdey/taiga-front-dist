@@ -33,9 +33,19 @@ exec(synchRepoAction)
         return delAsync(local + '/dist');
     })
     .then(function() {
-        console.log("compile taiga")
-        //compile taiga
-        return exec('cd ' + local + ' && npm install && bower install && gulp deploy');
+        console.log("compile taiga - install npm")
+        //compile taiga - install npm
+        return exec('cd ' + local + ' && npm install');
+    })
+    .then(function() {
+        console.log("compile taiga - install bower")
+        //compile taiga - install bower
+        return exec('cd ' + local + ' && bower install');
+    })
+    .then(function() {
+        console.log("compile taiga - deploy gulp")
+        //compile taiga - gulp deploy
+        return exec('cd ' + local + ' && gulp deploy');
     })
     .then(function() {
         console.log("remove old dist")
